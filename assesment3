@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
+
+contract VotingMachine {
+    uint256 public numberOfVotes;
+    address public voter;
+    string public name = "pearl";
+
+    constructor() {
+        voter = msg.sender;
+    }
+
+    mapping(address => uint256) public totalVotes;
+
+    // Modifier to check if caller is the voter
+    modifier onlyVoter() {
+        require(msg.sender == voter, "Only the voter can perform this action.");
+        _;
+    }
+
+    // Modifier to check if address is not zero
+    modifier validAddress(address addr) {
+        require(addr != address(0), "Cannot perform action on zero address.");
+        _;
+    }
+
+    // Minting function
+    function mintVotes(address to, uint256 votesToAdd) public onlyVoter {
+        require(votesToAdd > 0, "Votes to add must be greater than 0.");
+
+        totalVotes[to] += votesToAdd;
+        numberOfVotes += votesToAdd;
+    }
+
+    // Burning function
+    function burnVotes(address from, uint256 votesToBurn) public {
+        require(votesToBurn > 0, "Votes to burn must be greater than 0.");
+        require(votesToBurn <= totalVotes[from], "Votes to burn exceed the total votes in the machine.");
+
+        totalVotes[from] -= votesToBurn;
+        numberOfVotes -= votesToBurn;
+    }
+
+    // Transferring function
+    function transferVotes(address to, uint256 votesToTransfer) public validAddress(to) {
+        require(votesToTransfer > 0, "Votes to transfer must be greater than 0.");
+        require(votesToTransfer <= totalVotes[msg.sender], "Votes to transfer exceed the total votes.");
+
+        totalVotes[msg.sender] -= votesToTransfer;
+        totalVotes[to] += votesToTransfer;
+    }
+}
