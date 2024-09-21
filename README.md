@@ -67,10 +67,10 @@ contract CustomERC20Token {
         
         balanceOf[msg.sender] -= amount;
         balanceOf[to] += amount;
-
         emit Transfer(msg.sender, to, amount);
-    }
+    } 
 }
+    
 ## Functions Overview
 #### Minting Function:
 Access: Owner only
@@ -82,7 +82,7 @@ Allows any user to burn their own tokens, reducing the total supply.
 
 #### Transfer Function:
 Access: Public
-Users can transfer their tokens to other addresses.
+Users can transfer their tokens to other addresses.This function ensures that the sender has enough tokens in their balance before making the transfer and prevents transfers to the zero address.
 
 ## Authors
 Annu
