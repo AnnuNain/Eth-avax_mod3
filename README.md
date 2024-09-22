@@ -1,26 +1,25 @@
 # CustomERC20Token
-This project involves creating and deploying an ERC20 token smart contract using the Remix IDE. The contract includes functions to mint, burn, and transfer tokens, each with specific permissions and conditions.
+CustomERC20Token - A simple and customizable ERC20-like token smart contract.
 
 ## Description
-The CustomERC20Token contract allows users to interact with a custom ERC20 token. The contract owner can mint new tokens, while any user can burn or transfer tokens. The contract also imposes a cap on the total supply, ensuring that the maximum supply does not exceed 1 million tokens.
-
-This contract has been tested and deployed using the Remix IDE, and the functionalities are explained in a Loom video.
+CustomERC20Token (MCT) is a custom ERC20 token that implements essential functionalities like minting, burning, and transferring tokens. The contract allows the owner to mint new tokens, up to a maximum supply of 1 million tokens, and lets any user burn their own tokens or transfer tokens to other addresses. This contract follows standard security practices, ensuring that only the owner can mint tokens while maintaining flexibility for users to manage their own token balances.
 
 ## Getting Started
-### Executing the Program
+### Installing
 To compile and deploy the contract using Remix IDE:
-1. Open Remix in your browser at remix.ethereum.org.
-2. Create a new file and copy the contract code below into it.
-3. Press CTRL + S to save the contract.
-4. To compile, press CTRL + SHIFT + P, then select Solidity: Compile Contract.
-5. Once compiled, deploy the contract to your chosen Ethereum network through Remix.
+1. Open Remix IDE in your browser: Remix.
+2. Create a new file named CustomERC20Token.sol and paste the contract code.
+3. Compile the contract using the Solidity Compiler plugin in Remix.
+### Modifications
+_You can modify the contract in Remix by changing parameters like name, symbol, or maxSupply.
+_Ensure you adjust the environment and account settings in Remix for contract deployment.
 
 ## Smart Contract Code
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
 contract CustomERC20Token {
-
     string public name = "MyCustomToken";
     string public symbol = "MCT";
     uint8 public decimals = 18;
@@ -70,19 +69,23 @@ contract CustomERC20Token {
         emit Transfer(msg.sender, to, amount);
     } 
 }
-    
-## Functions Overview
-#### Minting Function:
-Access: Owner only
-Adds new tokens to a user’s balance as long as the total supply does not exceed the maximum limit.
 
-#### Burning Function:
-Access: Public
-Allows any user to burn their own tokens, reducing the total supply.
+## Executing Program
+How to Deploy the Contract:
+1. In Remix IDE, go to the Deploy & Run Transactions tab.
+2. Select the appropriate environment (e.g., JavaScript VM or Injected Web3 for MetaMask).
+3. Click on Deploy.
+How to Interact with the Contract:
+1. Mint Tokens (Owner only):
+   contract.mint(address, amount);
+2. Burn Tokens (Anyone):
+   contract.burn(amount);
+3. Transfer Tokens:
+   contract.transfer(to_address, amount);
 
-#### Transfer Function:
-Access: Public
-Users can transfer their tokens to other addresses.This function ensures that the sender has enough tokens in their balance before making the transfer and prevents transfers to the zero address.
+## Help
+If deployment issues occur, verify the environment settings in Remix.
+Ensure you are using the correct account in MetaMask or the Remix VM.
 
 ## Authors
 Annu
