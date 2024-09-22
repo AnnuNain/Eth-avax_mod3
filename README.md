@@ -71,11 +71,12 @@ contract CustomERC20Token {
 }
 
 ## Executing Program
-How to Deploy the Contract:
+###### How to Deploy the Contract:
 1. In Remix IDE, go to the Deploy & Run Transactions tab.
 2. Select the appropriate environment (e.g., JavaScript VM or Injected Web3 for MetaMask).
 3. Click on Deploy.
-How to Interact with the Contract:
+   
+###### How to Interact with the Contract:
 1. Mint Tokens (Owner only):
    contract.mint(address, amount);
 2. Burn Tokens (Anyone):
