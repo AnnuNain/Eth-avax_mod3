@@ -11,8 +11,8 @@ To compile and deploy the contract using Remix IDE:
 2. Create a new file named CustomERC20Token.sol and paste the contract code.
 3. Compile the contract using the Solidity Compiler plugin in Remix.
 ### Modifications
-           - You can modify the contract in Remix by changing parameters like name, symbol, or maxSupply.
-           - Ensure you adjust the environment and account settings in Remix for contract deployment.
+You can modify the contract in Remix by changing parameters like name, symbol, or maxSupply.
+Ensure you adjust the environment and account settings in Remix for contract deployment.
 
 ## Smart Contract Code
 
