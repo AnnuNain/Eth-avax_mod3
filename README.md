@@ -1,14 +1,14 @@
-# CustomERC20Token
-CustomERC20Token - A simple and customizable ERC20-like token smart contract.
+# EventParticipationToken (EPT)
+EventParticipationToken (EPT) - A customizable token smart contract designed to manage event participation and reward systems.
 
 ## Description
-CustomERC20Token (MCT) is a custom ERC20 token that implements essential functionalities like minting, burning, and transferring tokens. The contract allows the owner to mint new tokens, up to a maximum supply of 1 million tokens, and lets any user burn their own tokens or transfer tokens to other addresses. This contract follows standard security practices, ensuring that only the owner can mint tokens while maintaining flexibility for users to manage their own token balances.
+EventParticipationToken (EPT) is a custom token contract deployed on the Avalanche network. It enables event organizers to mint tokens as rewards for participants, allows participants to transfer, redeem, and burn their tokens, and provides security features such as restricting minting to the contract owner. The contract includes redeemable event tiers, offering a gamified reward system where participants can unlock specific benefits based on token levels.
 
 ## Getting Started
 ### Installing
 To compile and deploy the contract using Remix IDE:
 1. Open Remix IDE in your browser.
-2. Create a new file named EventParticipationToken.sol and paste the contract code below.
+2. reate a new file named EventParticipationToken.sol and paste the contract code below.
 3. Compile the contract using the Solidity Compiler plugin in Remix.
 
 ### Modifications
@@ -18,7 +18,6 @@ You can modify the contract in the Remix IDE by adjusting parameters like the ev
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
-
 contract EventParticipationToken {
     string public name = "EventParticipation";
     string public symbol = "EPT";
