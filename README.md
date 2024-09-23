@@ -7,89 +7,105 @@ CustomERC20Token (MCT) is a custom ERC20 token that implements essential functio
 ## Getting Started
 ### Installing
 To compile and deploy the contract using Remix IDE:
-1. Open Remix IDE in your browser: Remix.
-2. Create a new file named CustomERC20Token.sol and paste the contract code.
+1. Open Remix IDE in your browser.
+2. Create a new file named EventParticipationToken.sol and paste the contract code below.
 3. Compile the contract using the Solidity Compiler plugin in Remix.
+
 ### Modifications
-You can modify the contract in Remix by changing parameters like name, symbol, or maxSupply.
-Ensure you adjust the environment and account settings in Remix for contract deployment.
+You can modify the contract in the Remix IDE by adjusting parameters like the event tiers or reward conditions. Ensure to select the appropriate environment and account settings in Remix for contract deployment.
 
 ## Smart Contract Code
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract CustomERC20Token {
-    string public name = "MyCustomToken";
-    string public symbol = "MCT";
-    uint8 public decimals = 18;
+contract EventParticipationToken {
+    string public name = "EventParticipation";
+    string public symbol = "EPT";
     uint256 public totalSupply;
-    address public owner;
-    uint256 public maxSupply = 1000000 * (10 ** uint256(decimals)); // Max total supply is 1 million tokens
+    address public organizer;
 
-    mapping(address => uint256) public balanceOf;
+    mapping(address => uint256) public balances;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Mint(address indexed to, uint256 value);
     event Burn(address indexed from, uint256 value);
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the contract owner can perform this action.");
+    modifier onlyOrganizer() {
+        require(msg.sender == organizer, "Only the organizer can perform this action.");
         _;
     }
 
     constructor() {
-        owner = msg.sender;
+        organizer = msg.sender;
     }
 
-    // Minting function: only owner can mint new tokens
-    function mint(address to, uint256 amount) public onlyOwner {
-        require(totalSupply + amount <= maxSupply, "Minting would exceed the max supply.");
+    // Mint new tokens (Only the organizer can mint)
+    function mint(address to, uint256 amount) public onlyOrganizer {
         require(amount > 0, "Amount must be greater than zero.");
-        balanceOf[to] += amount;
+        balances[to] += amount;
         totalSupply += amount;
         emit Mint(to, amount);
     }
 
-    // Burning function: anyone can burn their own tokens
+    // Burn tokens (Anyone can burn their tokens)
     function burn(uint256 amount) public {
-        require(balanceOf[msg.sender] >= amount, "Insufficient balance to burn.");
-        balanceOf[msg.sender] -= amount;
+        require(balances[msg.sender] >= amount, "Insufficient balance to burn.");
+        balances[msg.sender] -= amount;
         totalSupply -= amount;
         emit Burn(msg.sender, amount);
     }
 
-    // Transfer function: anyone can transfer tokens to another address
+    // Transfer tokens (Anyone can transfer)
     function transfer(address to, uint256 amount) public {
-        require(balanceOf[msg.sender] >= amount, "Insufficient balance to transfer.");
+        require(balances[msg.sender] >= amount, "Insufficient balance to transfer.");
         require(to != address(0), "Cannot transfer to the zero address.");
-        
-        balanceOf[msg.sender] -= amount;
-        balanceOf[to] += amount;
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
         emit Transfer(msg.sender, to, amount);
-    } 
+    }
+
+    // Redeem tokens for event tiers (Different reward levels)
+    function redeem(uint256 amount, uint8 tier) public {
+        require(balances[msg.sender] >= amount, "Insufficient tokens to redeem.");
+        
+        if (tier == 1) {
+            require(amount >= 10, "Tier 1 requires at least 10 tokens.");
+            burn(amount);
+        } else if (tier == 2) {
+            require(amount >= 50, "Tier 2 requires at least 50 tokens.");
+            burn(amount);
+        } else if (tier == 3) {
+            require(amount >= 100, "Tier 3 requires at least 100 tokens.");
+            burn(amount);
+        } else {
+            revert("Invalid event tier.");
+        }
+    }
 }
+
 
 ## Executing Program
 ###### How to Deploy the Contract:
-1. In Remix IDE, go to the Deploy & Run Transactions tab.
-2. Select the appropriate environment (e.g., JavaScript VM or Injected Web3 for MetaMask).
-3. Click on Deploy.
-   
+1.In Remix IDE, go to the Deploy & Run Transactions tab.
+2. Select Injected Web3 as the environment if you are using MetaMask.
+3. Connect your MetaMask to the Avalanche Fuji Testnet.
+4. Click on Deploy to deploy the contract.   
 ###### How to Interact with the Contract:
-1. Mint Tokens (Owner only):
+1. Mint Tokens (Organizer only):
    contract.mint(address, amount);
 2. Burn Tokens (Anyone):
    contract.burn(amount);
 3. Transfer Tokens:
    contract.transfer(to_address, amount);
+4. Redeem Tokens for Event Tiers:
+   contract.redeem(amount, tier);
 
 ## Help
-If deployment issues occur, verify the environment settings in Remix.
-Ensure you are using the correct account in MetaMask or the Remix VM.
+If you encounter issues during deployment, verify the environment settings in Remix. Ensure you are using the correct account in MetaMask and that it is connected to the Avalanche Fuji Testnet.
 
 ## Authors
 Annu
 
 ## License
-This project is licensed under the MIT License. See the LICENSE.md file for details.
+This project is licensed under the MIT License. See the LICENSE.md file for details
