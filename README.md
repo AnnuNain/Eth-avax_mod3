@@ -1,18 +1,19 @@
-# EventParticipationToken (EPT)
-EventParticipationToken (EPT) - A customizable token smart contract designed to manage event participation and reward systems.
+# CustomERC20Token
+CustomERC20Token - A simple and customizable ERC20-like token smart contract.
 
 ## Description
-EventParticipationToken (EPT) is a custom token contract deployed on the Avalanche network. It enables event organizers to mint tokens as rewards for participants, allows participants to transfer, redeem, and burn their tokens, and provides security features such as restricting minting to the contract owner. The contract includes redeemable event tiers, offering a gamified reward system where participants can unlock specific benefits based on token levels.
+CustomERC20Token (MCT) is a custom ERC20 token that implements essential functionalities like minting, burning, and transferring tokens. The contract allows the owner to mint new tokens, up to a maximum supply of 1 million tokens, and lets any user burn their own tokens or transfer tokens to other addresses. This contract follows standard security practices, ensuring that only the owner can mint tokens while maintaining flexibility for users to manage their own token balances.
 
 ## Getting Started
 ### Installing
 To compile and deploy the contract using Remix IDE:
-1. Open Remix IDE in your browser.
-2. reate a new file named EventParticipationToken.sol and paste the contract code below.
+1. Open Remix IDE in your browser: Remix.
+2. Create a new file named CustomERC20Token.sol and paste the contract code.
 3. Compile the contract using the Solidity Compiler plugin in Remix.
 
 ### Modifications
-You can modify the contract in the Remix IDE by adjusting parameters like the event tiers or reward conditions. Ensure to select the appropriate environment and account settings in Remix for contract deployment.
+You can modify the contract in Remix by changing parameters like name, symbol, or maxSupply.
+Ensure you adjust the environment and account settings in Remix for contract deployment.
 
 ## Smart Contract Code
 
@@ -87,21 +88,19 @@ contract EventParticipationToken {
 ## Executing Program
 ###### How to Deploy the Contract:
 1.In Remix IDE, go to the Deploy & Run Transactions tab.
-2. Select Injected Web3 as the environment if you are using MetaMask.
-3. Connect your MetaMask to the Avalanche Fuji Testnet.
-4. Click on Deploy to deploy the contract.   
+2. Select the appropriate environment (e.g., JavaScript VM or Injected Web3 for MetaMask).
+3. Click on Deploy. 
 ###### How to Interact with the Contract:
-1. Mint Tokens (Organizer only):
+1. Mint Tokens (Owner only)
    contract.mint(address, amount);
 2. Burn Tokens (Anyone):
    contract.burn(amount);
 3. Transfer Tokens:
    contract.transfer(to_address, amount);
-4. Redeem Tokens for Event Tiers:
-   contract.redeem(amount, tier);
 
 ## Help
-If you encounter issues during deployment, verify the environment settings in Remix. Ensure you are using the correct account in MetaMask and that it is connected to the Avalanche Fuji Testnet.
+If deployment issues occur, verify the environment settings in Remix.
+Ensure you are using the correct account in MetaMask or the Remix VM
 
 ## Authors
 Annu
